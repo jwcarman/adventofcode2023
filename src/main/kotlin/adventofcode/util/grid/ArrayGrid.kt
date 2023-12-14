@@ -24,9 +24,7 @@ class ArrayGrid<T : Any>(private val values: Array<Array<T>>) : AbstractGrid<T>(
     private val height: Int = values.size
 
     init {
-        if (values.any { it.size != width }) {
-            throw IllegalArgumentException("All elements in values array should be of size $width")
-        }
+        require(!values.any { it.size != width }) { "All elements in values array should be of size $width" }
     }
 
     override fun getImpl(x: Int, y: Int) = values[y][x]
