@@ -38,7 +38,7 @@ class Day02 {
 
     @Test
     fun part2() {
-        calculatePart2(readAsString("day02.txt")) shouldBe 0L
+        calculatePart2(readAsString("day02.txt")) shouldBe 63700
     }
 
 
