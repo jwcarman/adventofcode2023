@@ -23,17 +23,17 @@ import org.junit.jupiter.api.Test
 class Day02 {
     @Test
     fun example1() {
-        calculatePart1(readAsString("day02-example.txt")) shouldBe 0L
+        calculatePart1(readAsString("day02-example.txt")) shouldBe 8
     }
 
     @Test
     fun part1() {
-        calculatePart1(readAsString("day02.txt")) shouldBe 0L
+        calculatePart1(readAsString("day02.txt")) shouldBe 2176
     }
 
     @Test
     fun example2() {
-        calculatePart2(readAsString("day02-example.txt")) shouldBe 0L
+        calculatePart2(readAsString("day02-example.txt")) shouldBe 2286
     }
 
     @Test
@@ -42,6 +42,12 @@ class Day02 {
     }
 
 
-    private fun calculatePart1(input: String): Long = 0
-    private fun calculatePart2(input: String): Long = 0
+    private fun calculatePart1(input: String): Int = input.lines()
+        .map { Game.parse(it) }
+        .filter { it.maxRed() <= 12 && it.maxBlue() <= 14 && it.maxGreen() <= 13 }
+        .sumOf { it.id }
+
+    private fun calculatePart2(input: String): Int = input.lines()
+        .map { Game.parse(it) }
+        .sumOf { it.calculatePower() }
 }
