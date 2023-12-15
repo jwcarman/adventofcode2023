@@ -20,10 +20,9 @@ fun List<String>.toGrid(padChar: Char = ' ') = TextGrid(this, padChar)
 class TextGrid(lines: List<String>, padChar: Char = ' ') : AbstractGrid<Char>() {
 
     private val lines: List<String>
-    private val width: Int
+    private val width: Int = lines.maxOf { it.length }
 
     init {
-        this.width = lines.maxOf { it.length }
         this.lines = lines.map { it.padEnd(width, padChar) }
     }
 
