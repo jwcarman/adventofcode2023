@@ -16,6 +16,7 @@
 
 package adventofcode.day04
 
+import adventofcode.ScratchCard
 import adventofcode.util.readAsString
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -23,25 +24,40 @@ import org.junit.jupiter.api.Test
 class Day04 {
     @Test
     fun example1() {
-        calculatePart1(readAsString("day04-example.txt")) shouldBe 0L
+        calculatePart1(readAsString("day04-example.txt")) shouldBe 13
     }
 
     @Test
     fun part1() {
-        calculatePart1(readAsString("day04.txt")) shouldBe 0L
+        calculatePart1(readAsString("day04.txt")) shouldBe 27845
     }
 
     @Test
     fun example2() {
-        calculatePart2(readAsString("day04-example.txt")) shouldBe 0L
+        calculatePart2(readAsString("day04-example.txt")) shouldBe 30
     }
 
     @Test
     fun part2() {
-        calculatePart2(readAsString("day04.txt")) shouldBe 0L
+        calculatePart2(readAsString("day04.txt")) shouldBe 9496801
     }
 
 
-    private fun calculatePart1(input: String): Long = 0
-    private fun calculatePart2(input: String): Long = 0
+    private fun calculatePart1(input: String): Int = input.lines().map { ScratchCard.parse(it) }.sumOf { it.score() }
+    private fun calculatePart2(input: String): Int {
+        val cards = input.lines().map { ScratchCard.parse(it) }
+        val queue = cards.toMutableList()
+        val cardCounts = mutableMapOf<Int,Int>()
+        cards.forEach { cardCounts[it.cardNumber] = 1 }
+
+        while (queue.isNotEmpty()) {
+            val card = queue.removeFirst()
+            val nCopies = cardCounts[card.cardNumber]!!
+            val matchCount = card.matchCount()
+            for (i in 1..matchCount) {
+                cardCounts[card.cardNumber+i] = cardCounts[card.cardNumber+i]!! + nCopies
+            }
+        }
+        return cardCounts.values.sum()
+    }
 }
