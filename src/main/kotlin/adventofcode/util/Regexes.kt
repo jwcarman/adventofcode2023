@@ -14,20 +14,6 @@
  * limitations under the License.
  */
 
-package adventofcode.util.grid
+package adventofcode.util
 
-import adventofcode.util.geom.plane.Point2D
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-
-class NullViewTest {
-    @Test
-    fun nullViewShouldReturnOriginalValues() {
-        val grid = ListGrid(2, 1, 2, 3, 4, 5, 6).nullView()
-        assertThat(grid.width()).isEqualTo(2)
-        assertThat(grid.height()).isEqualTo(3)
-        assertThat(grid.values().toList()).isEqualTo(listOf(1, 2, 3, 4, 5, 6))
-        assertThat(grid.size()).isEqualTo(6)
-        assertThat(grid.underlyingPoint(1, 2)).isEqualTo(Point2D(1, 2))
-    }
-}
+val whitespace = "\\s+".toRegex()
