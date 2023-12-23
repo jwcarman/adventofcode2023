@@ -17,31 +17,53 @@
 package adventofcode.day09
 
 import adventofcode.util.readAsString
+import adventofcode.util.splitByWhitespace
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 class Day09 {
     @Test
     fun example1() {
-        calculatePart1(readAsString("day09-example.txt")) shouldBe 0L
+        calculatePart1(readAsString("day09-example.txt")) shouldBe 114L
     }
 
     @Test
     fun part1() {
-        calculatePart1(readAsString("day09.txt")) shouldBe 0L
+        calculatePart1(readAsString("day09.txt")) shouldBe 2038472161L
     }
 
     @Test
     fun example2() {
-        calculatePart2(readAsString("day09-example.txt")) shouldBe 0L
+        calculatePart2(readAsString("day09-example.txt")) shouldBe 2L
     }
 
     @Test
     fun part2() {
-        calculatePart2(readAsString("day09.txt")) shouldBe 0L
+        calculatePart2(readAsString("day09.txt")) shouldBe 1091L
     }
 
 
-    private fun calculatePart1(input: String): Long = 0
-    private fun calculatePart2(input: String): Long = 0
+    private fun calculatePart1(input: String): Long {
+
+        return input.lines().sumOf { line ->
+            createSequence(line.splitByWhitespace().map { it.toLong() })
+                .takeWhile { diffs -> diffs.any { it != 0L } }
+                .map { it.last() }
+                .sum()
+        }
+    }
+
+    private fun createSequence(seed: List<Long>) =
+        generateSequence(seed) { it.windowed(2).map { (left, right) -> right - left } }
+
+    private fun calculatePart2(input: String): Long {
+        return input.lines().sumOf { line ->
+            createSequence(line.splitByWhitespace().map { it.toLong() })
+                .takeWhile { diffs -> diffs.any { it != 0L } }
+                .map { it.first() }
+                .toList()
+                .reversed()
+                .reduce{ acc, i -> i - acc}
+        }
+    }
 }
