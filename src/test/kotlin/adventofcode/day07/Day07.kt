@@ -23,25 +23,30 @@ import org.junit.jupiter.api.Test
 class Day07 {
     @Test
     fun example1() {
-        calculatePart1(readAsString("day07-example.txt")) shouldBe 0L
+        calculatePart1(readAsString("day07-example.txt")) shouldBe 6440
     }
 
     @Test
     fun part1() {
-        calculatePart1(readAsString("day07.txt")) shouldBe 0L
+        calculatePart1(readAsString("day07.txt")) shouldBe 248812215
     }
 
     @Test
     fun example2() {
-        calculatePart2(readAsString("day07-example.txt")) shouldBe 0L
+        calculatePart2(readAsString("day07-example.txt")) shouldBe 5905
     }
 
     @Test
     fun part2() {
-        calculatePart2(readAsString("day07.txt")) shouldBe 0L
+        calculatePart2(readAsString("day07.txt")) shouldBe 250057090
     }
 
-
-    private fun calculatePart1(input: String): Long = 0
-    private fun calculatePart2(input: String): Long = 0
+    private fun calculatePart1(input: String): Int {
+        val hands = input.lines().map { CamelCardsHand.parse(it) }.sortedBy { it.value }
+        return hands.mapIndexed { index, hand -> (index + 1) * hand.bid }.sum()
+    }
+    private fun calculatePart2(input: String): Int {
+        val hands = input.lines().map { CamelCardsHand.parse(it) }.sortedBy { it.wildCardValue }
+        return hands.mapIndexed { index, hand -> (index + 1) * hand.bid }.sum()
+    }
 }
