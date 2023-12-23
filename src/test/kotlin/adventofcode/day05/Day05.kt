@@ -18,7 +18,7 @@ package adventofcode.day05
 
 import adventofcode.util.intersection
 import adventofcode.util.readAsString
-import adventofcode.util.whitespace
+import adventofcode.util.splitByWhitespace
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
@@ -46,7 +46,7 @@ class Day05 {
     private fun calculatePart1(input: String): Long {
         val seeds = input.substringBefore("\n\n")
             .removePrefix("seeds: ")
-            .split(whitespace)
+            .splitByWhitespace()
             .map { it.toLong() }
         val squashed = parseSquashedSections(input)
         return seeds.minOf { squashed.map(it) }
@@ -57,7 +57,7 @@ class Day05 {
         val seedRanges = input
             .substringBefore("\n\n")
             .removePrefix("seeds: ")
-            .split(whitespace)
+            .splitByWhitespace()
             .map { it.toLong() }
             .chunked(2)
             .map { (it[0]..<it[0] + it[1]) }

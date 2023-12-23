@@ -17,31 +17,52 @@
 package adventofcode.day06
 
 import adventofcode.util.readAsString
+import adventofcode.util.removeWhitespace
+import adventofcode.util.splitByWhitespace
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 class Day06 {
     @Test
     fun example1() {
-        calculatePart1(readAsString("day06-example.txt")) shouldBe 0L
+        calculatePart1(readAsString("day06-example.txt")) shouldBe 288L
     }
 
     @Test
     fun part1() {
-        calculatePart1(readAsString("day06.txt")) shouldBe 0L
+        calculatePart1(readAsString("day06.txt")) shouldBe 512295L
     }
 
     @Test
     fun example2() {
-        calculatePart2(readAsString("day06-example.txt")) shouldBe 0L
+        calculatePart2(readAsString("day06-example.txt")) shouldBe 71503L
     }
 
     @Test
     fun part2() {
-        calculatePart2(readAsString("day06.txt")) shouldBe 0L
+        calculatePart2(readAsString("day06.txt")) shouldBe 36530883L
     }
 
 
-    private fun calculatePart1(input: String): Long = 0
-    private fun calculatePart2(input: String): Long = 0
+    private fun calculatePart1(input: String): Long {
+        val lines = input.lines()
+        val times = lines[0].removePrefix("Time:").trim().splitByWhitespace().map { it.toLong() }
+        val distances = lines[1].removePrefix("Distance:").trim().splitByWhitespace().map { it.toLong() }
+        return times.zip(distances)
+            .map { (time, distance) -> countWinningChargeTimes(time, distance) }
+            .fold(1L) { acc, i -> acc * i }
+    }
+    private fun calculatePart2(input: String): Long {
+        val lines = input.lines()
+        val time = lines[0].removePrefix("Time:").removeWhitespace().toLong()
+        val distance = lines[1].removePrefix("Distance:").removeWhitespace().toLong()
+        return countWinningChargeTimes(time, distance)
+    }
+
+    private fun countWinningChargeTimes(time: Long, distance: Long): Long {
+        val count =
+            (time / 2 downTo 1).map { chargeTime -> chargeTime * (time - chargeTime) }.takeWhile { it > distance }
+                .count()
+        return count * 2 - ((time + 1) % 2)
+    }
 }

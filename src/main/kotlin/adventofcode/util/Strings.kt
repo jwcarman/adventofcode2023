@@ -20,6 +20,13 @@ fun String.removeAll(vararg strings: String): String {
     return strings.fold(this) { acc, s -> acc.replace(Regex(s), "") }
 }
 
+private val whitespace = Regex("\\s+")
+fun String.splitByWhitespace(): List<String> {
+    return split(whitespace)
+}
 
+fun String.removeWhitespace(): String {
+    return replace(whitespace, "")
+}
 fun String.isNumeric(): Boolean = all { char -> char.isDigit() }
 
