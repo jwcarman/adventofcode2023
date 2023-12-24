@@ -37,11 +37,8 @@
 
         <maven.plugin.validation>VERBOSE</maven.plugin.validation>
 
-        <compiler.plugin.version>3.12.0</compiler.plugin.version>
         <failsafe.plugin.version>3.2.3</failsafe.plugin.version>
-        <surefire.plugin.version>3.2.2</surefire.plugin.version>
-
-
+        <surefire.plugin.version>3.2.3</surefire.plugin.version>
     </properties>
 
     <build>
@@ -54,20 +51,22 @@
                 <version>${kotlin.version}</version>
                 <executions>
                     <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
+                        <id>kotlin-compile</id>
                         <goals>
                             <goal>compile</goal>
                         </goals>
                     </execution>
+
                     <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
+                        <id>kotlin-testCompile</id>
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jvmTarget>${java.version}</jvmTarget>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -80,19 +79,6 @@
                 <version>${failsafe.plugin.version}</version>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${compiler.plugin.version}</version>
-                    <configuration>
-                        <release>${java.version}</release>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
     <dependencyManagement>
