@@ -37,7 +37,7 @@
 
         <maven.plugin.validation>VERBOSE</maven.plugin.validation>
 
-        <failsafe.plugin.version>3.2.3</failsafe.plugin.version>
+        <failsafe.plugin.version>3.2.5</failsafe.plugin.version>
         <surefire.plugin.version>3.2.3</surefire.plugin.version>
     </properties>
 
