@@ -31,7 +31,7 @@
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
         <kotlin.version>1.9.22</kotlin.version>
 
-        <assertj.version>3.25.1</assertj.version>
+        <assertj.version>3.25.2</assertj.version>
         <junit.version>5.10.1</junit.version>
         <kotest.version>5.8.0</kotest.version>
 
