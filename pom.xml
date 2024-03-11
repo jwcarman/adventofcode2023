@@ -33,7 +33,7 @@
 
         <assertj.version>3.25.1</assertj.version>
         <junit.version>5.10.1</junit.version>
-        <kotest.version>5.8.0</kotest.version>
+        <kotest.version>5.8.1</kotest.version>
 
         <maven.plugin.validation>VERBOSE</maven.plugin.validation>
 
